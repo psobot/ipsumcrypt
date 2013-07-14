@@ -6,17 +6,12 @@
 typedef enum state_e {
     kStart,
     kOne,
-    kSeparator,
     kZero,
 } state_e;
 
-void flush(unsigned char output) {
-    putchar(output);
-}
-
 char add(bool bit, unsigned char output, int *i) {
     if (*i > 0 && *i % 8 == 0) {
-        flush(output);
+        putchar(output);
         output = *i = 0;
     }
     return output | ((bit ? 1 : 0) << (*i)++);
@@ -38,15 +33,7 @@ int main(int argc, char **argv) {
             case kOne:
                 if (isspace(c)) {
                     output = add(1, output, &i);
-                    state = kSeparator;
-                }
-                break;
-            case kSeparator:
-                if (isspace(c)) {
                     state = kZero;
-                    output = add(0, output, &i);
-                } else {
-                    state = kOne;
                 }
                 break;
             case kZero:
@@ -59,15 +46,10 @@ int main(int argc, char **argv) {
         }
     }
 
-    switch (state) {
-        case kOne:
-            add(1, output, &i);
-            break;
-        default:
-            break;
+    if (state == kOne) {
+        add(1, output, &i);
     }
 
-    flush(output);
-
+    putchar(output);
     return 0;
 }

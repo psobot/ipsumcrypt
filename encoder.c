@@ -19,8 +19,7 @@ typedef union bits_t {
     } bits;
 } bits_t;
 
-char *getword() {
-    static int i = 0;
+char *getword(unsigned int i) {
     char *words[] = {
         "Lorem", "ipsum", "dolor", "sit", "amet,", "consectetur", "adipiscing",
         "elit.", "Sed", "commodo", "at", "eros", "ut", "facilisis.",
@@ -36,22 +35,23 @@ char *getword() {
         "mattis", "vestibulum.", "Praesent", "eu", "elit", "in", "mi",
         "vestibulum", "placerat", "ut", "sed", "orci.",
     };
-        return words[i++ % len(words)];
+    return words[i % len(words)];
 }
 
 int main(int argc, char **argv) {
+    int i = 0;
     bits_t c;
     char *empty = "";
 
     while (fread(&c.byte, 1, 1, stdin) == 1 && !feof(stdin)) {
-        printf("%s ", c.bits.bit1 ? getword() : empty);
-        printf("%s ", c.bits.bit2 ? getword() : empty);
-        printf("%s ", c.bits.bit3 ? getword() : empty);
-        printf("%s ", c.bits.bit4 ? getword() : empty);
-        printf("%s ", c.bits.bit5 ? getword() : empty);
-        printf("%s ", c.bits.bit6 ? getword() : empty);
-        printf("%s ", c.bits.bit7 ? getword() : empty);
-        printf("%s ", c.bits.bit8 ? getword() : empty);
+        printf("%s ", c.bits.bit1 ? getword(i++) : empty);
+        printf("%s ", c.bits.bit2 ? getword(i++) : empty);
+        printf("%s ", c.bits.bit3 ? getword(i++) : empty);
+        printf("%s ", c.bits.bit4 ? getword(i++) : empty);
+        printf("%s ", c.bits.bit5 ? getword(i++) : empty);
+        printf("%s ", c.bits.bit6 ? getword(i++) : empty);
+        printf("%s ", c.bits.bit7 ? getword(i++) : empty);
+        printf("%s ", c.bits.bit8 ? getword(i++) : empty);
     }
 
     return 0;
