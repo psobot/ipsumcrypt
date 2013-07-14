@@ -43,7 +43,7 @@ int main(int argc, char **argv) {
     bits_t c;
     char *empty = "";
 
-    while ((c.byte = getchar()) != EOF) {
+    while (fread(&c.byte, 1, 1, stdin) == 1 && !feof(stdin)) {
         printf("%s ", c.bits.bit1 ? getword() : empty);
         printf("%s ", c.bits.bit2 ? getword() : empty);
         printf("%s ", c.bits.bit3 ? getword() : empty);

@@ -29,7 +29,7 @@ int main(int argc, char **argv) {
     unsigned char c;
     unsigned char output = 0;
 
-    while ((c = getchar()) != (unsigned char) EOF) {
+    while (fread(&c, 1, 1, stdin) == 1 && !feof(stdin)) {
         reparse:
         switch (state) {
             case kStart:
